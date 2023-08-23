@@ -46,7 +46,7 @@ export const MembersList = () => {
                                         <Flex alignItems='center' justifyContent='flex-start'>
                                             <Avatar name={item.name.last} src={item.picture.thumbnail} mr='2' />
                                             <Text mr='1'>{`${item.name.last}${item.name.first}`}</Text>
-                                            {item.gender === 'male' ? (<PiGenderMaleBold color="blue" />) : (<PiGenderFemaleBold color="pink" />)}
+                                            {item.gender === 'male' ? (<PiGenderMaleBold color="cyan" />) : (<PiGenderFemaleBold color="pink" />)}
                                         </Flex>
                                     </Td>
                                     <Td>{item.phone}</Td>

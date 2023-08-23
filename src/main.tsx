@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import App from './App'
 
 const config: ThemeConfig = {
-  initialColorMode: 'light',
+  initialColorMode: 'dark',
   useSystemColorMode: false,
 }
 

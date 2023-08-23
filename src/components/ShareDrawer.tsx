@@ -39,7 +39,7 @@ export const ShareDrawer = (props: {
 
     return (
         <>
-            <Tooltip label={useForMap[useFor].label} placement='top' bg='green.600' fontSize='xs'>
+            <Tooltip label={useForMap[useFor].label} placement='top' bg='yellow.200' fontSize='xs'>
                 <IconButton
                     ref={btnRef} colorScheme='blue' onClick={onOpen}
                     aria-label={useForMap[useFor].label}

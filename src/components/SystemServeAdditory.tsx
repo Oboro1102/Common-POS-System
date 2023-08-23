@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useAppDispatch } from '../store/hooks';
 import { addServe, editServe } from '../store/modules/systemSlice';
-import { useDisclosure, Button, Input, NumberInput, NumberInputField, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from '@chakra-ui/react'
+import { useDisclosure, Box, Text, Button, Input, NumberInput, NumberInputField, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from '@chakra-ui/react'
 import { PiPlusBold, PiPencilBold } from "react-icons/pi"
 
 const useForMap = {
@@ -72,44 +72,59 @@ export const SystemServeAdditory = (props: {
                     <DrawerCloseButton />
                     <DrawerHeader>{useForMap[useFor].label}</DrawerHeader>
                     <DrawerBody>
-                        <Input value={newServe.name} placeholder='請輸入服務名稱' onChange={(e) => {
-                            setNewServe(prevState => ({
-                                ...prevState,
-                                name: e.target.value
-                            }))
-                        }} />
-                        <Input mt='4' value={newServe.image} placeholder='請輸入圖片連結' onChange={(e) => {
-                            setNewServe(prevState => ({
-                                ...prevState,
-                                image: e.target.value
-                            }))
-                        }} />
-                        <Input mt='4' value={newServe.spec} placeholder='請輸入規格' onChange={(e) => {
-                            setNewServe(prevState => ({
-                                ...prevState,
-                                spec: e.target.value
-                            }))
-                        }} />
-                        <NumberInput mt='4' defaultValue={0} min={0} value={newServe.price} placeholder='請輸入價格'>
-                            <NumberInputField onChange={(e) => {
+                        <Box>
+                            <Text as='b' fontSize='sm' color='gray.300'>服務名稱</Text>
+                            <Input mt='1' value={newServe.name} placeholder='請輸入服務名稱' onChange={(e) => {
                                 setNewServe(prevState => ({
                                     ...prevState,
-                                    price: Number(e.target.value.replace(/[^0-9]/g, ""))
+                                    name: e.target.value
                                 }))
                             }} />
-                        </NumberInput>
-                        <Input mt='4' value={newServe.group} placeholder='請輸入群組分類' onChange={(e) => {
-                            setNewServe(prevState => ({
-                                ...prevState,
-                                group: e.target.value
-                            }))
-                        }} />
+                        </Box>
+                        <Box mt='4'>
+                            <Text as='b' fontSize='sm' color='gray.300'>圖片連結</Text>
+                            <Input mt='1' value={newServe.image} placeholder='請輸入圖片連結' onChange={(e) => {
+                                setNewServe(prevState => ({
+                                    ...prevState,
+                                    image: e.target.value
+                                }))
+                            }} />
+                        </Box>
+                        <Box mt='4'>
+                            <Text as='b' fontSize='sm' color='gray.300'>規格</Text>
+                            <Input mt='1' value={newServe.spec} placeholder='請輸入規格' onChange={(e) => {
+                                setNewServe(prevState => ({
+                                    ...prevState,
+                                    spec: e.target.value
+                                }))
+                            }} />
+                        </Box>
+                        <Box mt='4'>
+                            <Text as='b' fontSize='sm' color='gray.300'>價格</Text>
+                            <NumberInput mt='1' defaultValue={0} min={0} value={newServe.price} placeholder='請輸入價格'>
+                                <NumberInputField onChange={(e) => {
+                                    setNewServe(prevState => ({
+                                        ...prevState,
+                                        price: Number(e.target.value.replace(/[^0-9]/g, ""))
+                                    }))
+                                }} />
+                            </NumberInput>
+                        </Box>
+                        <Box mt='4'>
+                            <Text as='b' fontSize='sm' color='gray.300'>群組分類</Text>
+                            <Input mt='1' value={newServe.group} placeholder='請輸入群組分類' onChange={(e) => {
+                                setNewServe(prevState => ({
+                                    ...prevState,
+                                    group: e.target.value
+                                }))
+                            }} />
+                        </Box>
                     </DrawerBody>
                     <DrawerFooter>
                         <Button variant='outline' mr={3} onClick={onClose}>取消</Button>
                         {useFor === 'add' ?
                             <Button colorScheme='green' onClick={() => { addNewServe(newServe) }}>新增</Button> :
-                            <Button colorScheme='blue' onClick={() => { updateServe(newServe) }}>更新</Button>}
+                            <Button colorScheme='green' onClick={() => { updateServe(newServe) }}>更新</Button>}
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>

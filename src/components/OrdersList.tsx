@@ -27,7 +27,7 @@ export const OrdersList = () => {
                                     <Td>{item.time}</Td>
                                     <Td>
                                         {item.orders.map((orderItem, index) =>
-                                            <Flex mt={index > 0 ? '2' : '0'} alignItems='center' justifyContent='flex-start' key={orderItem.id}>
+                                            <Flex mt={index > 0 ? '2' : '0'} alignItems='center' justifyContent='flex-start' wrap='wrap' key={orderItem.id}>
                                                 <Image
                                                     mr='2'
                                                     borderRadius='full'
@@ -38,7 +38,7 @@ export const OrdersList = () => {
                                                 <Text as='b' mr='2'>{orderItem.name}</Text>
                                                 <Tag mr='2' colorScheme='purple'>{orderItem.spec}</Tag>
                                                 <Tag mr='2' colorScheme='orange'>{orderItem.group}</Tag>
-                                                <Text as='b' fontSize='xs'>x{orderItem.qty}</Text>
+                                                <Text as='b' fontSize='xs'>x {orderItem.qty.toLocaleString()}</Text>
                                             </Flex>
                                         )}
                                     </Td>

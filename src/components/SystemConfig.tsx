@@ -42,7 +42,7 @@ export const SystemConfig = () => {
                             serve.map((item: serveListType) =>
                                 <Tr key={item.id}>
                                     <Td>
-                                        <Tag variant='solid' colorScheme='orange'>{item.group}</Tag>
+                                        <Tag variant='solid' colorScheme='purple'>{item.group}</Tag>
                                     </Td>
                                     <Td>
                                         <Flex alignItems='center' justifyContent='flex-start'>
