@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { type membersListType } from './membersSlice.ts'
 
 export interface orderHistoryType {
     id: string,
     serial: string,
     time: string,
     amount: number,
+    buyer: membersListType | null,
     orders: {
         id: string,
         image: string,

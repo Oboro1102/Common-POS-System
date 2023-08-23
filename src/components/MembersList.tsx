@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { membersList, initialMembersList, type membersListType } from '../store/modules/membersSlice.ts'
 import { Flex, Text, Avatar, Spinner, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer } from "@chakra-ui/react"
 import { PiGenderMaleBold, PiGenderFemaleBold } from "react-icons/pi"
+import { OrderHistoryViewer } from "../components/OrderHistoryViewer"
 
 export const MembersList = () => {
     // state
@@ -22,7 +23,7 @@ export const MembersList = () => {
 
     // hooks
     useEffect(() => {
-        getMembersList(15)
+        getMembersList(7)
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
@@ -32,6 +33,7 @@ export const MembersList = () => {
                     <Table size='sm'>
                         <Thead>
                             <Tr>
+                                <Th>消費紀錄</Th>
                                 <Th>姓名</Th>
                                 <Th>電話</Th>
                                 <Th>電子郵件</Th>
@@ -42,6 +44,9 @@ export const MembersList = () => {
                         <Tbody>
                             {members.map((item: membersListType) =>
                                 <Tr key={item.login.uuid}>
+                                    <Td textAlign='center'>
+                                        <OrderHistoryViewer id={item.login.uuid} />
+                                    </Td>
                                     <Td>
                                         <Flex alignItems='center' justifyContent='flex-start'>
                                             <Avatar name={item.name.last} src={item.picture.thumbnail} mr='2' />
@@ -57,6 +62,7 @@ export const MembersList = () => {
                         </Tbody>
                         <Tfoot>
                             <Tr>
+                                <Th>消費紀錄</Th>
                                 <Th>姓名</Th>
                                 <Th>電話</Th>
                                 <Th>電子郵件</Th>

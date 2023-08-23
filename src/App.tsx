@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useAppSelector, useAppDispatch } from './store/hooks.ts'
 import { currentTab, orderItems, setCurrentTab, addNewOrderItem, tuneOrdersItemQty, removeOrdersItem, reset, type orderItemsType } from './store/modules/globalSlice.ts'
 import { addOrder, type orderHistoryType } from './store/modules/ordersSlice.ts'
+import { type membersListType } from './store/modules/membersSlice.ts'
 import { serveList } from './store/modules/systemSlice.ts'
-import { Divider, Spinner, Flex, Box, Image, Button, Text, SimpleGrid, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/react"
-import { PiTrashBold } from "react-icons/pi"
+import { Divider, Spinner, Flex, Box, Image, Avatar, Button, IconButton, Text, SimpleGrid, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/react"
+import { PiTrashBold, PiXBold } from "react-icons/pi"
 import { Footer } from "./components/Footer"
+import { MembersSelector } from "./components/MembersSelector"
 
 function App() {
   // state
@@ -14,6 +17,7 @@ function App() {
     return array.indexOf(element) === index
   })
   const selectedTab = useAppSelector(currentTab)
+  const [buyer, setBuyer] = useState<membersListType | null>(null)
 
   // methods
   const dispatch = useAppDispatch();
@@ -24,6 +28,9 @@ function App() {
     const itemsAmount: number[] = orders.map(item => item.price * item.qty)
     const result: number = itemsAmount.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     return result
+  }
+  const getSelectedMember = (member: membersListType) => {
+    setBuyer(member)
   }
   const finishOrder = () => {
     const generateRandomNumber = (): string => {
@@ -48,10 +55,12 @@ function App() {
       serial: `${new Date().toLocaleDateString().replace(/[/]/g, '')}#${generateRandomNumber()}`,
       time: new Date().toLocaleString(),
       amount: sumOrders(),
+      buyer: buyer,
       orders: orders
     }
     dispatch(addOrder(data))
     dispatch(reset())
+    setBuyer(null)
   }
 
   return (
@@ -118,6 +127,16 @@ function App() {
                 <Flex mb='4' fontSize='sm' alignItems='flex-end' justifyContent='space-between'>
                   <Text>總計：</Text>
                   <Text>$<Text as='b' mx='1' fontSize='2xl'>{sumOrders().toLocaleString()}</Text>元</Text>
+                </Flex>
+                <Flex mb='4' alignItems='center' wrap='wrap'>
+                  <MembersSelector getSelectedMember={getSelectedMember} />
+                  {buyer &&
+                    <Flex ml='2' alignItems='center' justifyContent='flex-start'>
+                      <Avatar size='sm' name={buyer.name.last} src={buyer.picture.thumbnail} mr='2' />
+                      <Text mr='2'>{`${buyer.name.last}${buyer.name.first}`}</Text>
+                      <IconButton size='xs' colorScheme='red' borderRadius='full' aria-label='移除選取會員' icon={<PiXBold />} onClick={() => { setBuyer(null) }} />
+                    </Flex>
+                  }
                 </Flex>
                 <Button w='100%' colorScheme='green' onClick={() => { finishOrder() }}>結帳</Button>
               </Box>) : (
