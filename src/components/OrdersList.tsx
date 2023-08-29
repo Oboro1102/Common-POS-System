@@ -33,6 +33,7 @@ export const OrdersList = () => {
                                                     mr='2'
                                                     borderRadius='full'
                                                     boxSize='1.5rem'
+                                                    objectFit='cover'
                                                     src={orderItem.image}
                                                     alt={orderItem.name}
                                                 />

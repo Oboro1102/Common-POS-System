@@ -111,6 +111,7 @@ function App() {
                         mr='2'
                         borderRadius='full'
                         boxSize='2rem'
+                        objectFit='cover'
                         src={item.image}
                         alt={item.name}
                       />

@@ -50,6 +50,7 @@ export const SystemConfig = () => {
                                                 mr='2'
                                                 borderRadius='full'
                                                 boxSize='3rem'
+                                                objectFit='cover'
                                                 src={item.image}
                                                 alt={item.name}
                                             />
