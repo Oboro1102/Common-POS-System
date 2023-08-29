@@ -147,7 +147,7 @@ function App() {
                     </Flex>
                   }
                 </Flex>
-                <Button w='100%' colorScheme='green' onClick={() => { finishOrder() }}>結帳</Button>
+                <Button isDisabled={sumOrders() <= 0} w='100%' colorScheme='green' onClick={() => { finishOrder() }}>結帳</Button>
               </Box>) : (
               <Flex w='100%' h='100%' alignItems='center' justifyContent='center'>
                 <Text as='b' color='gray.400' fontSize='3xl'>無下單項目</Text>

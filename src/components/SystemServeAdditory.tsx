@@ -53,6 +53,10 @@ export const SystemServeAdditory = (props: {
         })
         onClose()
     }
+    const checkDataValue = (data: serveItemType) => {
+        const { name, image, spec, price, group } = data
+        return price <= 0 || name.length < 1 || image.length < 1 || spec.length < 1 || group.length < 1
+    }
     const updateServe = (data: serveItemType) => {
         dispatch(editServe(data))
         onClose()
@@ -124,8 +128,8 @@ export const SystemServeAdditory = (props: {
                     <DrawerFooter>
                         <Button variant='outline' mr={3} onClick={onClose}>取消</Button>
                         {useFor === 'add' ?
-                            <Button colorScheme='green' onClick={() => { addNewServe(newServe) }}>新增</Button> :
-                            <Button colorScheme='green' onClick={() => { updateServe(newServe) }}>更新</Button>}
+                            <Button isDisabled={checkDataValue(newServe)} colorScheme='green' onClick={() => { addNewServe(newServe) }}>新增</Button> :
+                            <Button isDisabled={checkDataValue(newServe)} colorScheme='green' onClick={() => { updateServe(newServe) }}>更新</Button>}
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
