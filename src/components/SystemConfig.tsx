@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../store/hooks.ts'
 import { orderItems } from '../store/modules/globalSlice.ts'
 import { serveList, type serveListType, removeServe } from '../store/modules/systemSlice.ts'
-import { Flex, Image, Text, Tag, Button, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer } from "@chakra-ui/react"
+import { Flex, Image, Text, Tag, Button, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Box } from "@chakra-ui/react"
 import { PiTrashBold } from "react-icons/pi"
 import { SystemServeAdditory } from "./SystemServeAdditory"
 
@@ -16,7 +16,7 @@ export const SystemConfig = () => {
     return (
         <>
             <Flex justifyContent='flex-end'>
-                <SystemServeAdditory useFor='add' editData={{
+                <SystemServeAdditory disabled={false} useFor='add' editData={{
                     id: new Date().toISOString(),
                     image: '',
                     name: '',
@@ -59,15 +59,16 @@ export const SystemConfig = () => {
                                     <Td>{item.spec}</Td>
                                     <Td isNumeric>{item.price.toLocaleString()}</Td>
                                     <Td>
-                                        {
-                                            orders.findIndex(existed => existed.id === item.id) === -1 && <Flex alignItems='center' justifyContent='flex-end'>
-                                                <SystemServeAdditory useFor='edit' editData={item} />
-                                                <Button ml='2' size='xs' colorScheme='red' leftIcon={<PiTrashBold />} onClick={() => {
-                                                    dispatch(removeServe(item.id))
-                                                }}>移除服務</Button>
-                                            </Flex>
-                                        }
-
+                                        <Flex alignItems='center' justifyContent='flex-end'>
+                                            <SystemServeAdditory disabled={orders.findIndex(existed => existed.id === item.id) !== -1} useFor='edit' editData={item} />
+                                            <Button isDisabled={orders.findIndex(existed => existed.id === item.id) !== -1} ml='2' size='xs' colorScheme='red' leftIcon={<PiTrashBold />} onClick={() => {
+                                                dispatch(removeServe(item.id))
+                                            }}>移除服務</Button>
+                                        </Flex>
+                                        {orders.findIndex(existed => existed.id === item.id) !== -1 &&
+                                            <Box mt='1' textAlign='right'>
+                                                <Text fontSize='xs' color='yellow.300'>請將項目從下單清單中移除再行操作</Text>
+                                            </Box>}
                                     </Td>
                                 </Tr>)}
                     </Tbody>

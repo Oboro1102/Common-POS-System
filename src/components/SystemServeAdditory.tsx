@@ -30,10 +30,11 @@ interface serveItemType {
 
 export const SystemServeAdditory = (props: {
     useFor: keyof typeof useForMap,
+    disabled: boolean,
     editData: serveItemType
 }) => {
     // state
-    const { useFor, editData } = props
+    const { useFor, editData, disabled } = props
     const [newServe, setNewServe] = useState(editData)
 
     // methods
@@ -59,7 +60,7 @@ export const SystemServeAdditory = (props: {
 
     return (
         <>
-            <Button ref={btnRef} size={useForMap[useFor].buttonSize} colorScheme={useForMap[useFor].buttonColor} leftIcon={useForMap[useFor].icon} onClick={onOpen}>{useForMap[useFor].label}</Button>
+            <Button isDisabled={disabled} ref={btnRef} size={useForMap[useFor].buttonSize} colorScheme={useForMap[useFor].buttonColor} leftIcon={useForMap[useFor].icon} onClick={onOpen}>{useForMap[useFor].label}</Button>
             <Drawer
                 isOpen={isOpen}
                 placement='right'
