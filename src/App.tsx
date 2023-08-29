@@ -67,32 +67,40 @@ function App() {
     <>
       <Box w='100%' h='100%' maxH={['calc(100% - 98px)', 'calc(100% - 72px)']} p={4} style={{ 'overflow': 'auto' }}>
         <Flex w='100%' h='100%' alignItems='flex-start' justifyContent='space-between' wrap='wrap'>
-          <Flex w={['100%', '100%', '64px']} h={['64px', '64px', 'auto']} flexDirection={['row', 'row', 'column']}>
-            {tabList.map((item: string, index) =>
-              <Button w='64px' h='64px' key={`${item}-${index}`} mb={[0, 0, 4]} mr={[4, 4, 0]} fontSize='sm' colorScheme='yellow' onClick={() => { dispatch(setCurrentTab(index)) }}>{item}</Button>
-            )}
-          </Flex>
-          <SimpleGrid w={['100%', '100%', 'calc(70% - 64px - 16px*2)']} mt={[4, 4, 0]} columns={[2, 3, 3, 4, 5]} spacing='4'>
-            {groupServe(tabList[selectedTab]).map((item) =>
-              <Box key={item.id} p='2' borderRadius='lg' borderWidth='1px'>
-                <Flex alignItems='flex-end' wrap='wrap'>
-                  <Image
-                    fallback={<Box w='100%' height='150px' display='flex' alignItems='center' justifyContent='center'><Spinner color='red' size='xl' /></Box>}
-                    borderRadius='lg'
-                    boxSize='100%'
-                    objectFit='cover'
-                    src={item.image}
-                    alt={item.name}
-                  />
-                  <Button isDisabled={orders.findIndex((existed) => existed.id === item.id) !== -1} w='100%' mt='2' colorScheme='green' onClick={() => { dispatch(addNewOrderItem(item as orderItemsType)) }}>下單</Button>
-                  <Box w='100%' mt='1'>
-                    <Text as='b' mr='2' fontSize='xl'>{item.name}</Text>
-                    <Text as='b' color='yellow.300'>${item.price}</Text>
+          {
+            tabList.length > 0 ? (<>
+              <Flex w={['100%', '100%', '64px']} h={['64px', '64px', 'auto']} flexDirection={['row', 'row', 'column']}>
+                {tabList.map((item: string, index) =>
+                  <Button w='64px' h='64px' key={`${item}-${index}`} mb={[0, 0, 4]} mr={[4, 4, 0]} fontSize='sm' colorScheme='yellow' onClick={() => { dispatch(setCurrentTab(index)) }}>{item}</Button>
+                )}
+              </Flex>
+              <SimpleGrid w={['100%', '100%', 'calc(70% - 64px - 16px*2)']} mt={[4, 4, 0]} columns={[2, 3, 3, 4, 5]} spacing='4'>
+                {groupServe(tabList[selectedTab]).map((item) =>
+                  <Box key={item.id} p='2' borderRadius='lg' borderWidth='1px'>
+                    <Flex alignItems='flex-end' wrap='wrap'>
+                      <Image
+                        fallback={<Box w='100%' height='150px' display='flex' alignItems='center' justifyContent='center'><Spinner color='red' size='xl' /></Box>}
+                        borderRadius='lg'
+                        boxSize='100%'
+                        objectFit='cover'
+                        src={item.image}
+                        alt={item.name}
+                      />
+                      <Button isDisabled={orders.findIndex((existed) => existed.id === item.id) !== -1} w='100%' mt='2' colorScheme='green' onClick={() => { dispatch(addNewOrderItem(item as orderItemsType)) }}>下單</Button>
+                      <Box w='100%' mt='1'>
+                        <Text as='b' mr='2' fontSize='xl'>{item.name}</Text>
+                        <Text as='b' color='yellow.300'>${item.price}</Text>
+                      </Box>
+                    </Flex>
                   </Box>
-                </Flex>
-              </Box>
-            )}
-          </SimpleGrid>
+                )}
+              </SimpleGrid>
+            </>) : (
+              <Flex w={['100%', '100%', '70%']} h={['10%', '10%', '100%']} alignItems='center' justifyContent='center'>
+                <Text as='b' color='gray.400' fontSize='3xl'>請至系統設定新增服務項目</Text>
+              </Flex>
+            )
+          }
           <Box w={['100%', '100%', '30%']} h={['90%', '90%', '100%']} mt={['4', '4', '0']} p='4' bg='gray.700' borderRadius='lg'>
             {orders.length > 0 ? (
               <Box>
